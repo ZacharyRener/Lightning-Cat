@@ -1,0 +1,32 @@
+/**
+ * Import npm dependencies
+ *
+ * Prefix your imports with `~` to grab from node_modules/
+ * @see https://github.com/webpack-contrib/sass-loader#imports
+ */
+// @import "~some-node-module";
+
+@import "common/variables";
+
+$transition-primary: .8s cubic-bezier(.2,1,.3,1);
+
+@mixin phone {
+    @media(max-width:768px){
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media(max-width:990px) and (min-width:768px){
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media(min-width: 990px){
+        @content;
+    }
+}
+
+/** Import theme styles */
+@import "common/global"
