@@ -24,15 +24,18 @@
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
+    "axios": "^0.19.2",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "css-loader": "^3.6.0",
+    "dotenv": "^8.2.0",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
+    "request": "^2.88.2",
     "sass-loader": "^8.0.2",
     "style-loader": "^1.2.1",
     "ts-loader": "^7.0.5",
@@ -41,6 +44,13 @@
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {
-    "opennode": "^1.2.1"
+    "@types/qrcode": "^1.3.4",
+    "opennode": "^1.2.1",
+    "qrcode": "^1.4.4"
+  },
+  "browser": {
+    "fs": false,
+    "path": false,
+    "os": false
   }
 }

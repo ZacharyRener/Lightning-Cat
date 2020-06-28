@@ -1,15 +1,28 @@
+const fs = require('fs')
+const https = require('https')
 const express = require('express')
 
-const https = require("https"),
-  fs = require("fs");
-
-const options = {
-    cert: fs.readFileSync("./server.crt"),
-    key: fs.readFileSync("./server.key"),
-};
 
 const app = express()
 
 app.use('/', express.static('public'))
 
-https.createServer(options, app).listen(3443);
+app.get('/send', (req, res) => {
+
+   
+
+    res.send('sent')
+
+})
+
+https.createServer({
+
+    key: fs.readFileSync('/etc/letsencrypt/live/ln.zacharyrener.com/privkey.pem'),
+    cert: fs.readFileSync('/etc/letsencrypt/live/ln.zacharyrener.com/fullchain.pem'),
+    ca: fs.readFileSync('/etc/letsencrypt/live/ln.zacharyrener.com/fullchain.pem')
+
+}, app).listen(443, () => {
+
+    console.log('Listening...')
+
+})
