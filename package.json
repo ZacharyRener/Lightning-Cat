@@ -13,7 +13,9 @@
     "https": "^1.0.0"
   },
   "devDependencies": {
+    "body-parser": "^1.19.0",
     "opennode": "^1.2.1",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "socket.io": "^2.3.0"
   }
 }

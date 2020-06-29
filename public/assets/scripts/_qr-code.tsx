@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import QRCode from 'qrcode'
-require('dotenv').config();
+import config from './config'
+import io from './../../../node_modules/socket.io-client/dist/socket.io'
 
 const axios = require('axios');
 
@@ -26,31 +27,20 @@ export default class LN_QR_Code extends Component<props, state> {
             loadText: "Generating LN Invoice..."
         }
 
-        this.createStrikeInvoice();
+        this.createStrikeInvoice()
+        this.checkForCompletedPayment()
 
     }
 
     checkForCompletedPayment() {
 
-        const interval = setInterval(()=>{
+        let socket = io();
+        socket.on('paid', response => {
+            
+            this.setState({ paid: true })
+            alert("Payment recieved!")
 
-            axios({
-                method: 'get',
-                url: 'https://api.strike.acinq.co/api/v1/charges/' + this.state.id,
-                auth: {
-                    username: process.env.STRIKE_API_KEY,
-                    password: process.env.STRIKE_PASSWORD
-                },
-            }).then( (res) => {
-                console.log("Paid: ", res.data.paid)
-                if(res.data.paid){
-                    this.setState({ paid: res.data.paid })
-                    alert("Payment Recieved!")
-                    clearInterval(interval)
-                }
-            })
-
-        }, 1000)
+        })
 
     }
 
@@ -65,15 +55,14 @@ export default class LN_QR_Code extends Component<props, state> {
                 description: 'example charge',
             },
             auth: {
-                username: process.env.STRIKE_API_KEY,
-                password: process.env.STRIKE_PASSWORD,
+                username: config.STRIKE_API_KEY,
+                password: config.STRIKE_PASSWORD,
             },
         }).then( (req) => {
             this.setState({ loadText: "" })
             this.setState({ payreq: req.data.payment_request })
             this.setState({ id: req.data.id })
             this.createQRCode( this.state.payreq )
-            this.checkForCompletedPayment()
         })
 
     }
