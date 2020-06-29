@@ -1,0 +1,8 @@
+const config = {
+
+    STRIKE_API_KEY: '1234',
+    STRIKE_PASSWORD: '1234'
+
+}
+
+module.exports = config;
