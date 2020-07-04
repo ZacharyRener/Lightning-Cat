@@ -14,6 +14,9 @@
   },
   "devDependencies": {
     "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "etherport-client": "^0.1.4",
+    "johnny-five": "^2.0.0",
     "opennode": "^1.2.1",
     "request": "^2.88.2",
     "socket.io": "^2.3.0"

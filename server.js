@@ -4,10 +4,18 @@ const express = require('express')
 const socketIo = require("socket.io")
 const app = express()
 let bodyParser = require('body-parser')
+let cors = require('cors')
 
+app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use('/', express.static('public'))
+
+app.get('/laser', (req,res)=>{
+
+    res.sendFile(__dirname + '/laserPublic/index.html')
+
+})
 
 app.post('/paid', (req, res) => {
 
@@ -20,7 +28,7 @@ app.post('/paid', (req, res) => {
 
 })
 
-const server = https.createServer({
+const httpsServer = https.createServer({
 
     key: fs.readFileSync('/etc/letsencrypt/live/ln.zacharyrener.com/privkey.pem'),
     cert: fs.readFileSync('/etc/letsencrypt/live/ln.zacharyrener.com/fullchain.pem'),
@@ -28,7 +36,7 @@ const server = https.createServer({
 
 }, app)
 
-const io = socketIo(server)
+const io = socketIo(httpsServer)
 
 const confirmPayment = () => {
 
@@ -46,8 +54,12 @@ io.on('connection', (socket) => {
 
 });
 
-server.listen(443, () => {
+httpsServer.listen(443, () => {
 
-    console.log('Listening...')
+    console.log('Listening on https...')
 
+})
+
+app.listen(80, () => {
+    console.log('listening on http...')
 })
