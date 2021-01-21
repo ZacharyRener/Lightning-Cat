@@ -19,6 +19,6 @@
     "johnny-five": "^2.0.0",
     "opennode": "^1.2.1",
     "request": "^2.88.2",
-    "socket.io": "^2.3.0"
+    "socket.io": "^2.4.0"
   }
 }
